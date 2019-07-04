@@ -2,7 +2,7 @@
 
 ## Окружение
 
-LAMP/WAMP (php v7.1 или выше)
+LAMP/WAMP (php v7.1 или выше, MySQL v.5.7 или выше)
 
 ## Инструкции для запуска
 
@@ -13,14 +13,12 @@ LAMP/WAMP (php v7.1 или выше)
 ### 2. ООП
 
 Дамп рабочей таблицы необходимо импортировать из файла books.sql
-Праметры подключения к базе данных находятся [db.php](https://github.com/di207/belenkiy-confirm-jun/tree/master/2_class_work_book/DB.php) в корне папки `2_class_work_book`
+Праметры подключения к базе данных находятся [config.php](https://github.com/di207/belenkiy-confirm-jun/tree/master/2_class_work_book/config.php) в корне папки `2_class_work_book`
 ```php
-// specify your own database credentials
-    private $host = "localhost";
-    private $db_name = "junior";
-    private $username = "root";
-    private $password = "";
-    public $conn;
+    define('DB_HOST', 'localhost');
+    define('DB_NAME', 'database_name');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
 ```
 
 ### 3. Функции и тесты
