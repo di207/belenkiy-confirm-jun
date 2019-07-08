@@ -18,7 +18,7 @@
     </head>
 
     <body>
-        <div class="container">
+        <div class="container mt-20">
             <form method="post" action="" enctype="multipart/form-data">
                 <div class="page-header">
                     <div class="alert alert-secondary" role="alert">
@@ -38,12 +38,41 @@
 
                 <div class="form-group">
                     <label for="csv">File input</label>
-                    <input type="file" id="csv" name="csv" class="form-control-file" />
+                    <input type="file" id="csv" name="csv" class="form-control-file" required/>
                 </div>
-                <input type="submit" id='upload' class="btn btn-primary" value="Upload"/>
+                <button type="submit" id='upload' class="btn btn-primary" name="parsing" value="Upload">Upload</button>
             </form>
 
-            <?php if(isset($table)) echo $table ?>
+            <?php if($parser) : ?>
+                <table  class='table'>
+                    <thead>
+                    <tr>
+                        <th class='cell-1'>название</th>
+                        <th class='cell-2'>артикул</th>
+                        <th class='cell-3'>Стоимость</th>
+                        <th>Цена</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($parser->all() as $data) { ?>
+                        <?php
+                            $title = $data->{"название"};
+                            $art = $data->{"артикул"};
+                            $number = $data->{"номер категории"};
+                            $cost = $data->{"стоимость оптовая"};
+                            $markup = ($number>=1 && $number<=10)? 5 : 7;
+                            $price = ((int)$cost*$markup/100) + (int)$cost;
+                            $css_class = ($number%2 == 0) ? "alert alert-success" : "alert alert-primary";
+                        ?>
+
+                    <tr class='alert <?=$css_class; ?>'>
+                        <td><span class='text-overflow'><?=$title; ?></span></td>
+                        <td><span class='text-overflow'><?=$art; ?></span></td>
+                        <td><span class='text-overflow'><?=$cost; ?></span></td>
+                        <td><span class='text-overflow'><?=$price; ?></span></td>
+                    </tr>
+                    <?php } ?>
+            <?php endif; ?>
 
         </div>
     </body>

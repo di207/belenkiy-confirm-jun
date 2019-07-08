@@ -1,7 +1,11 @@
 <?php
 
-if($_POST) {
-    $books = new Books($db);
+spl_autoload_register(function ($class) {
+    include $class . '.php';
+});
+
+if ($_POST) {
+    $books = new books;
     $alert = array();
 
     switch ($_POST['action']) {
@@ -10,7 +14,7 @@ if($_POST) {
             $title = $_POST['title-id'];
             $status = $_POST['status'];
             // add book
-            if($title !== '' && $books->create($title, $status)){
+            if ($title !== '' && $books->create($title, $status)) {
                 $alert[] = "<p class='alert alert-success'>Book upload.</p>";
             } else {
                 $alert[] = "<p class='alert alert-danger'>Unable to upload book.</p>";
@@ -20,11 +24,11 @@ if($_POST) {
             $title_id = $_POST['title-id'];
             $result = $books->getBooks($title_id);
 
-            if(count($result) > 0) {
-                $alert[] = "<p class='alert alert-success'>Book finded. <br/>".
-                                "title: ".$result['0']['title']."<br/>".
-                                "id: ".$result['0']['id']."<br/>".
-                                "status: ".$result['0']['status']."</p>";
+            if (count($result) > 0) {
+                $alert[] = "<p class='alert alert-success'>Book finded. <br/>" .
+                    "title: " . $result['0']->title . "<br/>" .
+                    "id: " . $result['0']->id . "<br/>" .
+                    "status: " . $result['0']->status . "</p>";
             } else {
                 $alert[] = "<p class='alert alert-danger'>Unable to fined book.</p>";
             }
@@ -34,7 +38,7 @@ if($_POST) {
             $id = $_POST['title-id'];
             $status = $_POST['status'];
             // create user
-            if($books->update($id, $status)){
+            if ($books->update($id, $status)) {
                 $alert[] = "<p class='alert alert-success'>Book status updated.</p>";
             } else {
                 $alert[] = "<p class='alert alert-danger'>Book status not updated.</p>";
