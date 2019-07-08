@@ -32,17 +32,18 @@
                             </div>
                         </div>
                     </td>
+
+                    <?php if (isset($alert) && count($alert) > 0) { ?>
                     <td rowspan="3">
                         <div>
                             <?php
-                                if (isset($alert) && count($alert) > 0) {
-                                    foreach ($alert as $key => $value) {
-                                        echo $value;
-                                    }
+                                foreach ($alert as $key => $value) {
+                                    echo $value;
                                 }
                             ?>
                         </div>
                     </td>
+                    <?php } ?>
                 </tr>
 
                 <tr>
